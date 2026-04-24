@@ -1,0 +1,17 @@
+services:
+  docforge:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: docforge-app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    volumes:
+      - uploads_data:/app/uploads    # Persist uploads between restarts
+    restart: unless-stopped          # Auto-restart if it crashes
+
+volumes:
+  uploads_data:                      # Named volume for upload persistence

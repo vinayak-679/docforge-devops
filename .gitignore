@@ -1,0 +1,7 @@
+node_modules/
+uploads/
+output/
+*.log
+.DS_Store
+template_clean.docx
+data.json

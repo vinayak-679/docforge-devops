@@ -1,0 +1,11 @@
+node_modules
+npm-debug.log
+output
+uploads
+.git
+.gitignore
+.DS_Store
+*.log
+template_clean.docx
+data.json
+generate.js

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Generate multiple unique documents from templates and test data using permutation and combination.">
+  <title>DocForge — Document Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Header -->
+    <header class="header">
+      <span class="header__icon">⚡</span>
+      <h1 class="header__title">DocForge</h1>
+      <p class="header__subtitle">Generate bulk documents from templates &amp; test data</p>
+    </header>
+
+    <!-- Upload Section -->
+    <p class="section-title">1 — Upload Files</p>
+    <div class="grid-2">
+
+      <!-- Template Upload Card -->
+      <div class="card" id="template-card">
+        <h2 class="card__title"><span>📄</span> Template Document</h2>
+        <div class="dropzone" id="template-dropzone">
+          <span class="dropzone__icon">📁</span>
+          <p class="dropzone__text">Drag &amp; drop your <strong>.docx template</strong> here<br>or click to browse</p>
+          <input type="file" id="template-input" accept=".docx">
+          <div class="dropzone__file" id="template-filename">
+            <span>📎</span>
+            <span id="template-name-text"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Test Data Card -->
+      <div class="card" id="data-card">
+        <h2 class="card__title"><span>🧪</span> Test Data (JSON)</h2>
+        <div class="json-editor">
+          <textarea id="json-input" spellcheck="false" placeholder='Paste your JSON here, e.g.:
+{
+  "name": ["Alice", "Bob"],
+  "city": ["New York", "London"],
+  "amount": ["$100", "$200"]
+}'></textarea>
+          <span class="json-status" id="json-status"></span>
+        </div>
+        <button class="json-upload-btn" id="json-upload-btn">
+          📂 Upload JSON File
+          <input type="file" id="json-file-input" accept=".json" style="display:none">
+        </button>
+      </div>
+    </div>
+
+    <!-- Configuration Section -->
+    <p class="section-title">2 — Configuration</p>
+    <div class="grid-3">
+      <div class="card">
+        <div class="form-group">
+          <label for="doc-count">Number of Documents</label>
+          <input type="number" class="form-input" id="doc-count" min="1" max="1000" value="5" placeholder="e.g. 10">
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="form-group">
+          <label for="output-format">Output Format</label>
+          <select class="form-select" id="output-format">
+            <option value="docx">DOCX (Word)</option>
+            <option value="pdf" id="pdf-option">PDF</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="toggle-row">
+          <div class="toggle-label">
+            Logic Rules
+            <small>Apply data consistency rules</small>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="rules-toggle">
+            <span class="toggle__slider"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rules Editor -->
+    <div class="rules-editor" id="rules-editor">
+      <div class="card">
+        <h2 class="card__title"><span>⚙️</span> Logic Rules</h2>
+        <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:1rem;">
+          Define rules to ensure generated data is logically consistent.
+        </p>
+        <div id="rules-list"></div>
+        <button class="add-rule-btn" id="add-rule-btn">＋ Add Rule</button>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button class="btn btn--secondary" id="preview-btn" disabled>
+        👁️ Preview
+      </button>
+      <button class="btn btn--primary" id="generate-btn" disabled>
+        🚀 Generate &amp; Download
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Preview Modal -->
+  <div class="modal-overlay" id="preview-modal">
+    <div class="modal">
+      <div class="modal__header">
+        <h2>📋 Document Preview</h2>
+        <button class="modal__close" id="modal-close">✕</button>
+      </div>
+      <div class="modal__body">
+        <div class="preview-content" id="preview-content">
+          <p style="color:#999;text-align:center;">Loading preview...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progress Overlay -->
+  <div class="progress-overlay" id="progress-overlay">
+    <div class="progress-spinner"></div>
+    <p class="progress-text" id="progress-text">Generating documents...</p>
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progress-fill"></div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
