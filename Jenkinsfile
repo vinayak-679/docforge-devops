@@ -16,23 +16,21 @@ pipeline {
 
                 cd ~
                 
-                # If repo not present → clone
+                echo 'If repo not present → clone'
                 if [ ! -d "docforge-devops" ]; then
                     git clone git@github.com:vinayak-679/docforge-devops.git
                 fi
 
                 cd docforge-devops
 
-                # Pull latest changes
+                echo 'Pull latest changes'
                 git pull origin main
 
-                # Stop old containers
+                echo 'Stop old containers'
                 docker compose down
 
-                # Build & start new containers
+                echo 'Build new containers & start new containers'
                 docker compose up -d --build
-
-                EOF
                 '''
             }
         }
