@@ -31,14 +31,9 @@ pipeline {
 
                 echo 'Build new containers & start new containers'
                 docker compose up -d --build
-                '''
-            }
-        }
-
-        stage('Verify Running Containers') {
-            steps {
-                sh '''
-                    docker ps
+                
+                echo 'List all docker containers'
+                docker ps
                 '''
             }
         }
